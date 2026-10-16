@@ -6,7 +6,7 @@ import { Logo } from '../components/common/Logo';
 import { Mail, Lock, ArrowRight, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
-  const { signIn, switchDemoRole } = useAuth();
+  const { signIn } = useAuth();
   const { t } = useLanguage();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -30,11 +30,6 @@ export const LoginPage: React.FC = () => {
     } else {
       navigate(redirectTarget);
     }
-  };
-
-  const handleQuickDemoLogin = (role: 'job_seeker' | 'employer' | 'admin') => {
-    switchDemoRole(role);
-    navigate(role === 'employer' ? '/employer' : role === 'admin' ? '/admin' : redirectTarget);
   };
 
   return (
@@ -110,35 +105,6 @@ export const LoginPage: React.FC = () => {
             </button>
           </form>
 
-          {/* Quick Demo Switcher for fast evaluation */}
-          <div className="pt-4 border-t border-slate-100 space-y-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block text-center">
-              Quick Test Personas
-            </span>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => handleQuickDemoLogin('job_seeker')}
-                className="py-1.5 px-2 bg-slate-100 hover:bg-emerald-50 hover:text-[#0BAA70] rounded-lg text-[11px] font-semibold text-slate-700 transition-colors"
-              >
-                Seeker
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickDemoLogin('employer')}
-                className="py-1.5 px-2 bg-slate-100 hover:bg-blue-50 hover:text-[#102B4E] rounded-lg text-[11px] font-semibold text-slate-700 transition-colors"
-              >
-                Employer
-              </button>
-              <button
-                type="button"
-                onClick={() => handleQuickDemoLogin('admin')}
-                className="py-1.5 px-2 bg-slate-100 hover:bg-purple-50 hover:text-purple-700 rounded-lg text-[11px] font-semibold text-slate-700 transition-colors"
-              >
-                Admin
-              </button>
-            </div>
-          </div>
 
           <div className="text-center text-xs text-slate-500">
             Don't have an account yet?{' '}

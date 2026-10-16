@@ -127,22 +127,22 @@ export const JobSeekerDashboard: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-5">
       {/* Dashboard Top Header */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-[#0BAA70] flex items-center justify-center font-bold text-xl border border-emerald-100">
+      <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-emerald-50 text-[#0BAA70] flex items-center justify-center font-bold text-lg sm:text-xl border border-emerald-100 shrink-0">
             {profile?.full_name ? profile.full_name[0].toUpperCase() : 'U'}
           </div>
           <div>
-            <h1 className="text-xl sm:text-2xl font-extrabold text-[#102B4E]">
+            <h1 className="text-lg sm:text-2xl font-extrabold text-[#102B4E]">
               {profile?.full_name || 'Job Seeker Dashboard'}
             </h1>
-            <p className="text-xs text-slate-500 flex items-center gap-2 mt-0.5">
+            <p className="text-xs text-slate-500 flex flex-wrap items-center gap-1.5 mt-0.5">
               <span>{user?.email}</span>
               <span aria-hidden="true">·</span>
               <span className="flex items-center gap-1 text-slate-700">
-                <MapPin className="w-3.5 h-3.5 text-[#0BAA70]" />
+                <MapPin className="w-3.5 h-3.5 text-[#0BAA70] shrink-0" />
                 {profile?.locality || 'Hubli'}, {profile?.city || 'Karnataka'}
               </span>
             </p>
@@ -151,17 +151,17 @@ export const JobSeekerDashboard: React.FC = () => {
 
         <Link
           to="/jobs"
-          className="px-4 py-2 bg-[#0BAA70] hover:bg-[#098557] text-white text-xs font-bold rounded-xl transition-colors shadow-xs"
+          className="w-full sm:w-auto text-center px-4 py-2.5 bg-[#0BAA70] hover:bg-[#098557] text-white text-xs font-bold rounded-xl transition-colors shadow-xs min-h-[44px] flex items-center justify-center"
         >
           Explore More Jobs
         </Link>
       </div>
 
-      {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-slate-200 text-xs font-semibold text-slate-600">
+      {/* Mobile-friendly Horizontal Tabs */}
+      <div className="flex items-center gap-2 border-b border-slate-200 text-xs font-semibold text-slate-600 overflow-x-auto no-scrollbar pb-0.5">
         <button
           onClick={() => setActiveTab('applications')}
-          className={`pb-3 px-3 border-b-2 transition-all flex items-center gap-2 ${
+          className={`pb-3 px-3 border-b-2 transition-all flex items-center gap-1.5 whitespace-nowrap min-h-[44px] ${
             activeTab === 'applications'
               ? 'border-[#0BAA70] text-[#0BAA70] font-bold'
               : 'border-transparent hover:text-[#102B4E]'
@@ -173,26 +173,26 @@ export const JobSeekerDashboard: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('saved')}
-          className={`pb-3 px-3 border-b-2 transition-all flex items-center gap-2 ${
+          className={`pb-3 px-3 border-b-2 transition-all flex items-center gap-1.5 whitespace-nowrap min-h-[44px] ${
             activeTab === 'saved'
               ? 'border-[#0BAA70] text-[#0BAA70] font-bold'
               : 'border-transparent hover:text-[#102B4E]'
           }`}
         >
           <Bookmark className="w-4 h-4" />
-          <span>Saved Jobs ({savedJobs.length})</span>
+          <span>Saved ({savedJobs.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab('profile')}
-          className={`pb-3 px-3 border-b-2 transition-all flex items-center gap-2 ${
+          className={`pb-3 px-3 border-b-2 transition-all flex items-center gap-1.5 whitespace-nowrap min-h-[44px] ${
             activeTab === 'profile'
               ? 'border-[#0BAA70] text-[#0BAA70] font-bold'
               : 'border-transparent hover:text-[#102B4E]'
           }`}
         >
           <User className="w-4 h-4" />
-          <span>Profile & Resume</span>
+          <span>Profile & Skills</span>
         </button>
       </div>
 
@@ -200,24 +200,24 @@ export const JobSeekerDashboard: React.FC = () => {
       {/* TAB 1: APPLICATIONS TRACKER                              */}
       {/* ======================================================== */}
       {activeTab === 'applications' && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {applications.length > 0 ? (
             <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden divide-y divide-slate-100">
               {applications.map((app) => (
-                <div key={app.id} className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-slate-50/50 transition-colors">
+                <div key={app.id} className="p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:bg-slate-50/50 transition-colors">
                   <div className="space-y-1">
-                    <div className="text-xs text-slate-500 font-medium">
+                    <div className="text-[11px] text-slate-500 font-medium">
                       {app.job?.business?.business_name || 'Local Employer'} · {app.job?.locality}, {app.job?.city}
                     </div>
                     <Link
                       to={`/jobs/${app.job_id}`}
-                      className="text-base font-bold text-[#102B4E] hover:text-[#0BAA70] transition-colors flex items-center gap-1.5"
+                      className="text-sm sm:text-base font-bold text-[#102B4E] hover:text-[#0BAA70] transition-colors flex items-center gap-1.5"
                     >
                       <span>{app.job?.title || 'Applied Job Listing'}</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+                      <ExternalLink className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                     </Link>
-                    <div className="text-xs text-slate-500 flex items-center gap-2 pt-1">
-                      <span>Applied on {new Date(app.created_at).toLocaleDateString()}</span>
+                    <div className="text-[11px] text-slate-500 flex items-center gap-2 pt-0.5">
+                      <span>Applied: {new Date(app.created_at).toLocaleDateString()}</span>
                       {app.job?.salary_min && (
                         <>
                           <span>·</span>
@@ -227,14 +227,14 @@ export const JobSeekerDashboard: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3 self-end sm:self-auto">
+                  <div className="self-end sm:self-auto">
                     {getStatusBadge(app.status)}
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-2xl p-10 border border-slate-200 text-center space-y-3">
+            <div className="bg-white rounded-2xl p-8 sm:p-10 border border-slate-200 text-center space-y-3">
               <Briefcase className="w-8 h-8 text-slate-400 mx-auto" />
               <h3 className="text-base font-bold text-[#102B4E]">You haven't applied to any jobs yet</h3>
               <p className="text-xs text-slate-500 max-w-sm mx-auto">
@@ -242,7 +242,7 @@ export const JobSeekerDashboard: React.FC = () => {
               </p>
               <Link
                 to="/jobs"
-                className="inline-block px-4 py-2 bg-[#0BAA70] text-white text-xs font-bold rounded-lg"
+                className="inline-block px-5 py-2.5 bg-[#0BAA70] text-white text-xs font-bold rounded-xl min-h-[44px]"
               >
                 Browse Active Jobs
               </Link>
@@ -255,19 +255,19 @@ export const JobSeekerDashboard: React.FC = () => {
       {/* TAB 2: SAVED JOBS                                        */}
       {/* ======================================================== */}
       {activeTab === 'saved' && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {savedJobs.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {savedJobs.map((job) => (
-                <div key={job.id} className="bg-white rounded-xl p-5 border border-slate-200 flex flex-col justify-between">
+                <div key={job.id} className="bg-white rounded-xl p-4 sm:p-5 border border-slate-200 flex flex-col justify-between">
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-500 font-medium">
+                      <span className="text-[11px] text-slate-500 font-medium truncate">
                         {job.business?.business_name} · {job.locality}
                       </span>
                       <button
                         onClick={() => handleUnsave(job.id)}
-                        className="text-slate-400 hover:text-red-500 p-1"
+                        className="text-slate-400 hover:text-red-500 p-2 min-h-[40px] min-w-[40px] flex items-center justify-center"
                         title="Remove from saved"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -275,7 +275,7 @@ export const JobSeekerDashboard: React.FC = () => {
                     </div>
 
                     <Link to={`/jobs/${job.id}`}>
-                      <h3 className="text-base font-bold text-[#102B4E] hover:text-[#0BAA70]">
+                      <h3 className="text-sm sm:text-base font-bold text-[#102B4E] hover:text-[#0BAA70]">
                         {job.title}
                       </h3>
                     </Link>
@@ -285,13 +285,13 @@ export const JobSeekerDashboard: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs mt-3">
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs mt-3">
                     <span className="font-bold text-[#102B4E]">
                       {job.salary_min ? `₹${job.salary_min.toLocaleString()} / mo` : 'Salary Negotiable'}
                     </span>
                     <Link
                       to={`/jobs/${job.id}`}
-                      className="px-3 py-1.5 bg-[#0BAA70] text-white rounded-lg font-semibold hover:bg-[#098557]"
+                      className="px-3.5 py-2 bg-[#0BAA70] text-white rounded-lg font-semibold hover:bg-[#098557] min-h-[38px] flex items-center"
                     >
                       View & Apply
                     </Link>
@@ -300,7 +300,7 @@ export const JobSeekerDashboard: React.FC = () => {
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-2xl p-10 border border-slate-200 text-center space-y-3">
+            <div className="bg-white rounded-2xl p-8 sm:p-10 border border-slate-200 text-center space-y-2">
               <Bookmark className="w-8 h-8 text-slate-400 mx-auto" />
               <h3 className="text-base font-bold text-[#102B4E]">No saved jobs</h3>
               <p className="text-xs text-slate-500">
@@ -315,8 +315,8 @@ export const JobSeekerDashboard: React.FC = () => {
       {/* TAB 3: PROFILE & RESUME                                  */}
       {/* ======================================================== */}
       {activeTab === 'profile' && (
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xs max-w-2xl">
-          <form onSubmit={handleSaveProfile} className="space-y-5 text-xs">
+        <div className="bg-white rounded-2xl p-4 sm:p-8 border border-slate-200 shadow-xs max-w-2xl">
+          <form onSubmit={handleSaveProfile} className="space-y-4 text-xs">
             {profileSuccess && (
               <div className="p-3 bg-emerald-50 text-[#0BAA70] rounded-lg border border-emerald-200 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -324,7 +324,7 @@ export const JobSeekerDashboard: React.FC = () => {
               </div>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block font-semibold text-slate-700 mb-1">Full Name</label>
                 <input
@@ -332,7 +332,7 @@ export const JobSeekerDashboard: React.FC = () => {
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
                 />
               </div>
 
@@ -343,18 +343,18 @@ export const JobSeekerDashboard: React.FC = () => {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+91 98800 00000"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block font-semibold text-slate-700 mb-1">City</label>
                 <select
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
                 >
                   <option value="Hubli">Hubli (ಹುಬ್ಬಳ್ಳಿ)</option>
                   <option value="Dharwad">Dharwad (ಧಾರವಾಡ)</option>
@@ -369,34 +369,34 @@ export const JobSeekerDashboard: React.FC = () => {
                   value={locality}
                   onChange={(e) => setLocality(e.target.value)}
                   placeholder="e.g. Vidyanagar, Chennamma Circle"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
                 />
               </div>
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 mb-1">
-                Education / College (e.g. B.Com 2nd Year, KLE Tech, Karnatak University)
+                Education / College
               </label>
               <input
                 type="text"
                 value={education}
                 onChange={(e) => setEducation(e.target.value)}
-                placeholder="Mention degree, branch, or college"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                placeholder="Mention degree, branch, or college (e.g. KLE Tech, KCD)"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               />
             </div>
 
             <div>
               <label className="block font-semibold text-slate-700 mb-1">
-                Experience Summary / Availability
+                Experience Summary / Shift Availability
               </label>
               <textarea
                 rows={3}
                 value={experienceSummary}
                 onChange={(e) => setExperienceSummary(e.target.value)}
-                placeholder="Describe your background, language skills, or preferred shift hours..."
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                placeholder="Describe your background or preferred shift hours..."
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
               />
             </div>
 
@@ -409,13 +409,13 @@ export const JobSeekerDashboard: React.FC = () => {
                   value={skillInput}
                   onChange={(e) => setSkillInput(e.target.value)}
                   onKeyDown={handleAddSkill}
-                  placeholder="e.g. Tally, POS Billing, Kannada, English, Customer Care..."
-                  className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                  placeholder="e.g. Tally, POS Billing, Kannada, English..."
+                  className="flex-1 px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
                 />
                 <button
                   type="button"
                   onClick={handleAddSkill}
-                  className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg text-xs"
+                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-700 font-semibold rounded-lg text-xs min-h-[44px]"
                 >
                   Add
                 </button>
@@ -425,13 +425,13 @@ export const JobSeekerDashboard: React.FC = () => {
                 {skills.map((skill) => (
                   <span
                     key={skill}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-[#0BAA70] rounded-md font-medium text-xs"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-[#0BAA70] rounded-md font-medium text-xs min-h-[30px]"
                   >
                     {skill}
                     <button
                       type="button"
                       onClick={() => handleRemoveSkill(skill)}
-                      className="hover:text-red-500"
+                      className="hover:text-red-500 font-bold p-0.5"
                     >
                       ×
                     </button>
@@ -444,7 +444,7 @@ export const JobSeekerDashboard: React.FC = () => {
               <button
                 type="submit"
                 disabled={profileSaving}
-                className="px-6 py-2.5 bg-[#0BAA70] hover:bg-[#098557] text-white font-bold rounded-xl transition-colors shadow-xs"
+                className="w-full sm:w-auto px-6 py-3 bg-[#0BAA70] hover:bg-[#098557] active:bg-[#08734a] text-white font-bold rounded-xl transition-colors shadow-xs min-h-[44px]"
               >
                 {profileSaving ? 'Saving...' : 'Save Profile Changes'}
               </button>

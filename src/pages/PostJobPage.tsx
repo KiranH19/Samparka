@@ -115,21 +115,21 @@ export const PostJobPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-5">
       <button
         onClick={() => navigate('/employer')}
-        className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#102B4E]"
+        className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-[#102B4E] min-h-[36px]"
       >
         <ArrowLeft className="w-3.5 h-3.5" />
         <span>Back to Employer Hub</span>
       </button>
 
-      <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
+      <div className="bg-white rounded-2xl p-4 sm:p-8 border border-slate-200 shadow-xs space-y-5">
         <div>
-          <h1 className="text-2xl font-extrabold text-[#102B4E]">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-[#102B4E]">
             Post a Job Opening
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 mt-0.5">
             Reach local candidates across Hubli–Dharwad within hours.
           </p>
         </div>
@@ -141,7 +141,7 @@ export const PostJobPage: React.FC = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5 text-xs">
+        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           {/* Job Title */}
           <div>
             <label className="block font-semibold text-slate-700 mb-1">
@@ -153,18 +153,18 @@ export const PostJobPage: React.FC = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Retail Counter Sales Assistant, Cafe Barista, Assembly Tech"
-              className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0BAA70]"
+              className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0BAA70] min-h-[44px]"
             />
           </div>
 
           {/* Category & Employment Type */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block font-semibold text-slate-700 mb-1">Category *</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               >
                 <option value="Retail & Shops">{t.categories.retail}</option>
                 <option value="Restaurants & Cafes">{t.categories.restaurant}</option>
@@ -181,7 +181,7 @@ export const PostJobPage: React.FC = () => {
               <select
                 value={employmentType}
                 onChange={(e) => setEmploymentType(e.target.value as EmploymentType)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               >
                 <option value="full_time">{t.jobTypes.full_time}</option>
                 <option value="part_time">{t.jobTypes.part_time}</option>
@@ -193,13 +193,13 @@ export const PostJobPage: React.FC = () => {
           </div>
 
           {/* Location: City & Locality */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block font-semibold text-slate-700 mb-1">City *</label>
               <select
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               >
                 <option value="Hubli">Hubli (ಹುಬ್ಬಳ್ಳಿ)</option>
                 <option value="Dharwad">Dharwad (ಧಾರವಾಡ)</option>
@@ -215,13 +215,13 @@ export const PostJobPage: React.FC = () => {
                 value={locality}
                 onChange={(e) => setLocality(e.target.value)}
                 placeholder="e.g. Chennamma Circle, Vidyanagar, Gokul Road, Line Bazar"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               />
             </div>
           </div>
 
           {/* Salary Min / Max Range */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block font-semibold text-slate-700 mb-1">
                 Minimum Monthly Salary (₹)
@@ -233,7 +233,7 @@ export const PostJobPage: React.FC = () => {
                 value={salaryMin}
                 onChange={(e) => setSalaryMin(e.target.value)}
                 placeholder="10000"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               />
             </div>
 
@@ -248,13 +248,13 @@ export const PostJobPage: React.FC = () => {
                 value={salaryMax}
                 onChange={(e) => setSalaryMax(e.target.value)}
                 placeholder="18000"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               />
             </div>
           </div>
 
           {/* Schedule & Openings */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block font-semibold text-slate-700 mb-1">
                 Work Schedule / Timings
@@ -264,7 +264,7 @@ export const PostJobPage: React.FC = () => {
                 value={workSchedule}
                 onChange={(e) => setWorkSchedule(e.target.value)}
                 placeholder="e.g. 10:00 AM – 7:00 PM or 4 PM – 9 PM (Evening)"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               />
             </div>
 
@@ -276,7 +276,7 @@ export const PostJobPage: React.FC = () => {
                 max="100"
                 value={openings}
                 onChange={(e) => setOpenings(e.target.value)}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               />
             </div>
           </div>
@@ -288,11 +288,11 @@ export const PostJobPage: React.FC = () => {
             </label>
             <textarea
               required
-              rows={5}
+              rows={4}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Outline daily duties, customer interaction expectations, required language fluency, and perks..."
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+              placeholder="Outline daily duties, customer interaction expectations, and perks..."
+              className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
             />
           </div>
 
@@ -306,26 +306,26 @@ export const PostJobPage: React.FC = () => {
               value={skillsInput}
               onChange={(e) => setSkillsInput(e.target.value)}
               placeholder="e.g. Customer Hospitality, Cashier, Kannada Fluency, Tally"
-              className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+              className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
             />
           </div>
 
-          {/* Publishing Status */}
-          <div className="pt-2 flex items-center justify-between border-t border-slate-100">
-            <label className="flex items-center gap-2 cursor-pointer font-medium text-slate-700">
+          {/* Publishing Status & Submit Button */}
+          <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-slate-100">
+            <label className="flex items-center gap-2 cursor-pointer font-medium text-slate-700 min-h-[36px]">
               <input
                 type="checkbox"
                 checked={status === 'published'}
                 onChange={(e) => setStatus(e.target.checked ? 'published' : 'draft')}
                 className="w-4 h-4 text-[#0BAA70] rounded border-slate-300"
               />
-              <span>Publish listing immediately (make live to candidates)</span>
+              <span>Publish listing immediately</span>
             </label>
 
             <button
               type="submit"
               disabled={submitting}
-              className="px-6 py-2.5 bg-[#0BAA70] hover:bg-[#098557] text-white font-bold rounded-xl transition-colors shadow-xs"
+              className="w-full sm:w-auto px-6 py-3 bg-[#0BAA70] hover:bg-[#098557] active:bg-[#08734a] text-white font-bold rounded-xl transition-colors shadow-xs min-h-[44px] flex items-center justify-center"
             >
               {submitting ? 'Publishing...' : 'Publish Job Listing'}
             </button>

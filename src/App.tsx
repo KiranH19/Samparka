@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { LanguageProvider } from './context/LanguageContext';
 import { AuthProvider } from './context/AuthContext';
 import { Header } from './components/common/Header';
+import { BottomNav } from './components/common/BottomNav';
 import { Footer } from './components/common/Footer';
 import { HomePage } from './pages/HomePage';
 import { JobsPage } from './pages/JobsPage';
@@ -16,6 +17,7 @@ import { JobSeekerDashboard } from './pages/JobSeekerDashboard';
 import { EmployerDashboard } from './pages/EmployerDashboard';
 import { PostJobPage } from './pages/PostJobPage';
 import { AdminDashboard } from './pages/AdminDashboard';
+import { SafetyRulesPage } from './pages/SafetyRulesPage';
 
 // Helper to scroll to top on navigation
 const ScrollToTop = () => {
@@ -32,13 +34,14 @@ export const App: React.FC = () => {
       <AuthProvider>
         <Router>
           <ScrollToTop />
-          <div className="min-h-screen flex flex-col bg-[#FAFAF5] text-[#172B4D]">
+          <div className="min-h-screen flex flex-col bg-[#FAFAF5] text-[#172B4D] pb-16 md:pb-0">
             <Header />
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/jobs" element={<JobsPage />} />
                 <Route path="/jobs/:id" element={<JobDetailsPage />} />
+                <Route path="/safety" element={<SafetyRulesPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -52,6 +55,8 @@ export const App: React.FC = () => {
               </Routes>
             </main>
             <Footer />
+            {/* Native Mobile Bottom Navigation */}
+            <BottomNav />
           </div>
         </Router>
       </AuthProvider>

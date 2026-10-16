@@ -31,7 +31,7 @@ import {
 } from 'lucide-react';
 
 export const EmployerDashboard: React.FC = () => {
-  const { user, profile, switchDemoRole } = useAuth();
+  const { user, profile } = useAuth();
   const { t } = useLanguage();
   const navigate = useNavigate();
 
@@ -80,7 +80,6 @@ export const EmployerDashboard: React.FC = () => {
     fetchEmployerJobs(user.id)
       .then(async (empJobs) => {
         setJobs(empJobs);
-        // Load applications for these jobs
         const appsPromises = empJobs.map((j) => fetchJobApplicationsForEmployer(j.id));
         const nested = await Promise.all(appsPromises);
         setApplications(nested.flat());
@@ -143,30 +142,30 @@ export const EmployerDashboard: React.FC = () => {
   const shortlistedCount = applications.filter((a) => a.status === 'shortlisted' || a.status === 'hired').length;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8 space-y-5">
       {/* Top Banner */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-xl sm:text-2xl font-extrabold text-[#102B4E]">
+            <h1 className="text-lg sm:text-2xl font-extrabold text-[#102B4E]">
               {business?.business_name || 'Employer Dashboard'}
             </h1>
             {business?.verification_status === 'verified' && (
-              <span className="inline-flex items-center gap-1 text-[#0BAA70] text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-100">
+              <span className="inline-flex items-center gap-1 text-[#0BAA70] text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-100">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 Verified
               </span>
             )}
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 mt-0.5">
             {business?.locality || 'Hubli'}, {business?.city || 'Karnataka'} · {business?.category || 'Local Business'}
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="w-full sm:w-auto">
           <Link
             to="/employer/jobs/new"
-            className="px-4 py-2.5 bg-[#0BAA70] hover:bg-[#098557] text-white text-xs font-bold rounded-xl transition-colors shadow-xs flex items-center gap-2"
+            className="w-full sm:w-auto px-4 py-2.5 bg-[#0BAA70] hover:bg-[#098557] text-white text-xs font-bold rounded-xl transition-colors shadow-xs flex items-center justify-center gap-2 min-h-[44px]"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Post a New Job</span>
@@ -175,28 +174,28 @@ export const EmployerDashboard: React.FC = () => {
       </div>
 
       {/* KPI Performance Strip */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-1">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Published Jobs</span>
-          <div className="text-2xl font-extrabold text-[#102B4E]">{activeJobsCount}</div>
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
+        <div className="bg-white p-3.5 sm:p-5 rounded-xl border border-slate-200 space-y-0.5 sm:space-y-1">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block truncate">Active Jobs</span>
+          <div className="text-lg sm:text-2xl font-extrabold text-[#102B4E]">{activeJobsCount}</div>
         </div>
 
-        <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-1">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Received Applicants</span>
-          <div className="text-2xl font-extrabold text-[#0BAA70]">{totalApplicantsCount}</div>
+        <div className="bg-white p-3.5 sm:p-5 rounded-xl border border-slate-200 space-y-0.5 sm:space-y-1">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block truncate">Applicants</span>
+          <div className="text-lg sm:text-2xl font-extrabold text-[#0BAA70]">{totalApplicantsCount}</div>
         </div>
 
-        <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-1">
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Shortlisted / Hired</span>
-          <div className="text-2xl font-extrabold text-[#102B4E]">{shortlistedCount}</div>
+        <div className="bg-white p-3.5 sm:p-5 rounded-xl border border-slate-200 space-y-0.5 sm:space-y-1">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider block truncate">Shortlisted</span>
+          <div className="text-lg sm:text-2xl font-extrabold text-[#102B4E]">{shortlistedCount}</div>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex items-center gap-4 border-b border-slate-200 text-xs font-semibold text-slate-600">
+      {/* Mobile-Friendly Tabs */}
+      <div className="flex items-center gap-2 border-b border-slate-200 text-xs font-semibold text-slate-600 overflow-x-auto no-scrollbar pb-0.5">
         <button
           onClick={() => setActiveTab('jobs')}
-          className={`pb-3 px-2 border-b-2 transition-all flex items-center gap-2 ${
+          className={`pb-3 px-3 border-b-2 transition-all flex items-center gap-1.5 whitespace-nowrap min-h-[44px] ${
             activeTab === 'jobs' ? 'border-[#0BAA70] text-[#0BAA70] font-bold' : 'border-transparent hover:text-[#102B4E]'
           }`}
         >
@@ -206,7 +205,7 @@ export const EmployerDashboard: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('applicants')}
-          className={`pb-3 px-2 border-b-2 transition-all flex items-center gap-2 ${
+          className={`pb-3 px-3 border-b-2 transition-all flex items-center gap-1.5 whitespace-nowrap min-h-[44px] ${
             activeTab === 'applicants' ? 'border-[#0BAA70] text-[#0BAA70] font-bold' : 'border-transparent hover:text-[#102B4E]'
           }`}
         >
@@ -216,7 +215,7 @@ export const EmployerDashboard: React.FC = () => {
 
         <button
           onClick={() => setActiveTab('business')}
-          className={`pb-3 px-2 border-b-2 transition-all flex items-center gap-2 ${
+          className={`pb-3 px-3 border-b-2 transition-all flex items-center gap-1.5 whitespace-nowrap min-h-[44px] ${
             activeTab === 'business' ? 'border-[#0BAA70] text-[#0BAA70] font-bold' : 'border-transparent hover:text-[#102B4E]'
           }`}
         >
@@ -229,14 +228,14 @@ export const EmployerDashboard: React.FC = () => {
       {/* TAB 1: JOB POSTINGS MANAGEMENT                           */}
       {/* ======================================================== */}
       {activeTab === 'jobs' && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {jobs.length > 0 ? (
             <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden divide-y divide-slate-100">
               {jobs.map((job) => (
-                <div key={job.id} className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div key={job.id} className="p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
-                      <span className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase ${
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
                         job.status === 'published' ? 'bg-emerald-50 text-[#0BAA70]' :
                         job.status === 'paused' ? 'bg-amber-50 text-amber-700' : 'bg-slate-100 text-slate-600'
                       }`}>
@@ -244,29 +243,25 @@ export const EmployerDashboard: React.FC = () => {
                       </span>
                       <span>·</span>
                       <span>{job.locality}, {job.city}</span>
-                      <span>·</span>
-                      <span className="capitalize">{job.employment_type.replace('_', ' ')}</span>
                     </div>
 
                     <Link
                       to={`/jobs/${job.id}`}
-                      className="text-base font-bold text-[#102B4E] hover:text-[#0BAA70] transition-colors block"
+                      className="text-sm sm:text-base font-bold text-[#102B4E] hover:text-[#0BAA70] transition-colors block"
                     >
                       {job.title}
                     </Link>
 
-                    <div className="text-xs text-slate-500 flex items-center gap-2 pt-1">
-                      <span>Posted: {new Date(job.created_at).toLocaleDateString()}</span>
-                      <span>·</span>
+                    <div className="text-[11px] text-slate-500 flex items-center gap-2 pt-0.5">
                       <span>{job.applications_count || 0} applications received</span>
                     </div>
                   </div>
 
-                  {/* Actions */}
+                  {/* Actions (Touch-friendly 40px+ buttons) */}
                   <div className="flex items-center gap-2 self-end sm:self-auto text-xs">
                     <Link
                       to={`/jobs/${job.id}`}
-                      className="p-2 border border-slate-200 hover:bg-slate-50 rounded-lg text-slate-600"
+                      className="p-2 border border-slate-200 hover:bg-slate-50 rounded-lg text-slate-600 min-h-[40px] min-w-[40px] flex items-center justify-center"
                       title="View public listing"
                     >
                       <Eye className="w-4 h-4" />
@@ -275,7 +270,7 @@ export const EmployerDashboard: React.FC = () => {
                     {job.status !== 'closed' && (
                       <button
                         onClick={() => handleToggleJobStatus(job.id, job.status)}
-                        className="px-3 py-1.5 border border-slate-200 hover:bg-slate-50 rounded-lg text-slate-700 font-medium"
+                        className="px-3 py-2 border border-slate-200 hover:bg-slate-50 rounded-lg text-slate-700 font-medium min-h-[40px]"
                       >
                         {job.status === 'published' ? 'Pause' : 'Resume'}
                       </button>
@@ -284,7 +279,7 @@ export const EmployerDashboard: React.FC = () => {
                     {job.status !== 'closed' && (
                       <button
                         onClick={() => handleCloseJob(job.id)}
-                        className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-medium"
+                        className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-medium min-h-[40px]"
                       >
                         Mark Filled
                       </button>
@@ -294,7 +289,7 @@ export const EmployerDashboard: React.FC = () => {
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-2xl p-10 border border-slate-200 text-center space-y-3">
+            <div className="bg-white rounded-2xl p-8 sm:p-10 border border-slate-200 text-center space-y-3">
               <Briefcase className="w-8 h-8 text-slate-400 mx-auto" />
               <h3 className="text-base font-bold text-[#102B4E]">You haven't posted any jobs yet</h3>
               <p className="text-xs text-slate-500">
@@ -302,7 +297,7 @@ export const EmployerDashboard: React.FC = () => {
               </p>
               <Link
                 to="/employer/jobs/new"
-                className="inline-block px-4 py-2 bg-[#0BAA70] text-white text-xs font-bold rounded-lg"
+                className="inline-block px-4 py-2.5 bg-[#0BAA70] text-white text-xs font-bold rounded-xl min-h-[44px]"
               >
                 Post Your First Job
               </Link>
@@ -315,14 +310,14 @@ export const EmployerDashboard: React.FC = () => {
       {/* TAB 2: APPLICANTS VIEWER                                 */}
       {/* ======================================================== */}
       {activeTab === 'applicants' && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {/* Job Filter selector */}
-          <div className="flex items-center justify-between bg-white p-4 rounded-xl border border-slate-200 text-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-white p-3.5 rounded-xl border border-slate-200 text-xs">
             <span className="font-semibold text-slate-700">Filter Applicants by Job:</span>
             <select
               value={selectedJobForApplicants}
               onChange={(e) => setSelectedJobForApplicants(e.target.value)}
-              className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg font-medium text-slate-800 focus:outline-none"
+              className="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg font-medium text-slate-800 focus:outline-none min-h-[40px]"
             >
               <option value="all">All Jobs ({applications.length})</option>
               {jobs.map((j) => (
@@ -334,25 +329,25 @@ export const EmployerDashboard: React.FC = () => {
           {filteredApplications.length > 0 ? (
             <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden divide-y divide-slate-100">
               {filteredApplications.map((app) => (
-                <div key={app.id} className="p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div key={app.id} className="p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-bold text-[#102B4E]">{app.applicant_name}</h4>
+                      <h4 className="text-xs sm:text-sm font-bold text-[#102B4E]">{app.applicant_name}</h4>
                       <span className="text-xs text-slate-400">·</span>
-                      <span className="text-xs text-slate-500">
-                        Applied {new Date(app.created_at).toLocaleDateString()}
+                      <span className="text-[11px] text-slate-500">
+                        {new Date(app.created_at).toLocaleDateString()}
                       </span>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-3 text-xs text-slate-600 pt-0.5">
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-slate-600 pt-0.5">
                       {app.applicant_phone && (
-                        <span className="flex items-center gap-1 font-medium">
-                          <Phone className="w-3.5 h-3.5 text-[#0BAA70]" />
+                        <a href={`tel:${app.applicant_phone}`} className="flex items-center gap-1 font-semibold text-[#0BAA70] hover:underline">
+                          <Phone className="w-3.5 h-3.5" />
                           {app.applicant_phone}
-                        </span>
+                        </a>
                       )}
-                      <span className="flex items-center gap-1">
-                        <Mail className="w-3.5 h-3.5 text-slate-400" />
+                      <span className="flex items-center gap-1 text-slate-500">
+                        <Mail className="w-3.5 h-3.5" />
                         {app.applicant_email}
                       </span>
                     </div>
@@ -365,12 +360,12 @@ export const EmployerDashboard: React.FC = () => {
                   </div>
 
                   {/* Status Dropdown */}
-                  <div className="flex items-center gap-3 self-end md:self-auto text-xs">
+                  <div className="flex items-center gap-2 self-end md:self-auto text-xs pt-1 sm:pt-0">
                     <span className="text-slate-500 font-medium">Status:</span>
                     <select
                       value={app.status}
                       onChange={(e) => handleStatusChange(app.id, e.target.value as ApplicationStatus)}
-                      className="px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg font-bold text-xs focus:ring-2 focus:ring-[#0BAA70] text-slate-800 cursor-pointer"
+                      className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg font-bold text-xs focus:ring-2 focus:ring-[#0BAA70] text-slate-800 cursor-pointer min-h-[40px]"
                     >
                       <option value="applied">Applied</option>
                       <option value="under_review">Under Review</option>
@@ -383,7 +378,7 @@ export const EmployerDashboard: React.FC = () => {
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-2xl p-10 border border-slate-200 text-center space-y-2">
+            <div className="bg-white rounded-2xl p-8 sm:p-10 border border-slate-200 text-center space-y-2">
               <Users className="w-8 h-8 text-slate-400 mx-auto" />
               <h3 className="text-base font-bold text-[#102B4E]">No applicants received yet</h3>
               <p className="text-xs text-slate-500">
@@ -398,8 +393,8 @@ export const EmployerDashboard: React.FC = () => {
       {/* TAB 3: BUSINESS PROFILE SETUP & EDIT                     */}
       {/* ======================================================== */}
       {activeTab === 'business' && (
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xs max-w-2xl">
-          <form onSubmit={handleSaveBusiness} className="space-y-5 text-xs">
+        <div className="bg-white rounded-2xl p-4 sm:p-8 border border-slate-200 shadow-xs max-w-2xl">
+          <form onSubmit={handleSaveBusiness} className="space-y-4 text-xs">
             {bizSuccess && (
               <div className="p-3 bg-emerald-50 text-[#0BAA70] rounded-lg border border-emerald-200 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
@@ -417,17 +412,17 @@ export const EmployerDashboard: React.FC = () => {
                 value={bizName}
                 onChange={(e) => setBizName(e.target.value)}
                 placeholder="e.g. Kamat Retail, Chai & Charcha Cafe"
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
               />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block font-semibold text-slate-700 mb-1">Category</label>
                 <select
                   value={bizCategory}
                   onChange={(e) => setBizCategory(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
                 >
                   <option value="Retail & Shops">Retail & Shops</option>
                   <option value="Restaurants & Cafes">Restaurants & Cafes</option>
@@ -444,7 +439,7 @@ export const EmployerDashboard: React.FC = () => {
                 <select
                   value={bizCity}
                   onChange={(e) => setBizCity(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
                 >
                   <option value="Hubli">Hubli (ಹುಬ್ಬಳ್ಳಿ)</option>
                   <option value="Dharwad">Dharwad (ಧಾರವಾಡ)</option>
@@ -453,7 +448,7 @@ export const EmployerDashboard: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block font-semibold text-slate-700 mb-1">Locality</label>
                 <input
@@ -462,7 +457,7 @@ export const EmployerDashboard: React.FC = () => {
                   value={bizLocality}
                   onChange={(e) => setBizLocality(e.target.value)}
                   placeholder="e.g. Chennamma Circle, Vidyanagar, Gokul Road"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
                 />
               </div>
 
@@ -473,7 +468,7 @@ export const EmployerDashboard: React.FC = () => {
                   value={bizPhone}
                   onChange={(e) => setBizPhone(e.target.value)}
                   placeholder="+91 98800..."
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                  className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70] min-h-[44px]"
                 />
               </div>
             </div>
@@ -485,7 +480,7 @@ export const EmployerDashboard: React.FC = () => {
                 value={bizDesc}
                 onChange={(e) => setBizDesc(e.target.value)}
                 placeholder="Describe your store, products, or working culture..."
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-900 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#0BAA70]"
               />
             </div>
 
@@ -493,7 +488,7 @@ export const EmployerDashboard: React.FC = () => {
               <button
                 type="submit"
                 disabled={savingBiz}
-                className="px-6 py-2.5 bg-[#0BAA70] hover:bg-[#098557] text-white font-bold rounded-xl transition-colors shadow-xs"
+                className="w-full sm:w-auto px-6 py-3 bg-[#0BAA70] hover:bg-[#098557] active:bg-[#08734a] text-white font-bold rounded-xl transition-colors shadow-xs min-h-[44px]"
               >
                 {savingBiz ? 'Saving...' : 'Save Business Profile'}
               </button>

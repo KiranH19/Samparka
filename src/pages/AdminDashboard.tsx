@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 
 export const AdminDashboard: React.FC = () => {
-  const { user, isAdmin, switchDemoRole } = useAuth();
+  const { user, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState<'businesses' | 'jobs' | 'reports'>('businesses');
@@ -80,13 +80,13 @@ export const AdminDashboard: React.FC = () => {
         <Lock className="w-12 h-12 text-slate-400 mx-auto" />
         <h2 className="text-xl font-bold text-[#102B4E]">Admin Authorization Required</h2>
         <p className="text-xs text-slate-500">
-          This moderation console is restricted to platform administrators.
+          This moderation console is restricted to authorized platform administrators.
         </p>
         <button
-          onClick={() => switchDemoRole('admin')}
-          className="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-lg transition-colors"
+          onClick={() => navigate('/')}
+          className="px-5 py-2.5 bg-[#102B4E] hover:bg-[#0c223e] text-white text-xs font-bold rounded-lg transition-colors"
         >
-          Switch to Test Admin Role
+          Return to Home
         </button>
       </div>
     );

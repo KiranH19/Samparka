@@ -6,6 +6,7 @@ const rawAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
 
 // Check if credentials are authentic (not placeholders or empty)
 export const isSupabaseConfigured = (): boolean => {
+  if (typeof process !== 'undefined' && (process.env?.NODE_ENV === 'test' || process.env?.VITEST === 'true')) return false;
   if (!rawUrl || !rawAnonKey) return false;
   if (rawUrl.includes('your-project') || rawAnonKey.includes('your-anon')) return false;
   try {

@@ -91,18 +91,22 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#102B4E] mb-3">
               Local Support
             </h4>
-            <div className="space-y-2 text-xs text-slate-500">
-              <p className="flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5 text-[#0BAA70] shrink-0" />
-                <span>Vidyanagar, Hubli, Karnataka 580031</span>
+            <div className="space-y-2.5 text-xs text-slate-500">
+              <p className="flex items-start gap-2">
+                <MapPin className="w-3.5 h-3.5 text-[#0BAA70] shrink-0 mt-0.5" />
+                <span>Hubli-Dharwad, Karnataka 580001</span>
               </p>
               <p className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-[#0BAA70] shrink-0" />
-                <span>support@samparka.in</span>
+                <a href="mailto:samparkasupport@gmail.com" className="hover:text-[#0BAA70] transition-colors">
+                  samparkasupport@gmail.com
+                </a>
               </p>
               <p className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#0BAA70] shrink-0" />
-                <span>+91 98800 12345 (Hubli Support)</span>
+                <a href="tel:+918073588621" className="hover:text-[#0BAA70] transition-colors font-medium">
+                  +91 8073588621 (For Support)
+                </a>
               </p>
             </div>
           </div>
