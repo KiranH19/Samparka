@@ -17,7 +17,6 @@ interface AuthContextType {
   signUp: (email: string, password: string, fullName: string, role: UserRole) => Promise<{ error?: string }>;
   signOut: () => Promise<void>;
   updateProfile: (updates: Partial<Profile>) => Promise<{ error?: string }>;
-  switchDemoRole: (role: UserRole) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -53,37 +52,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           console.warn('Supabase session load error:', err);
         }
       } else {
-        // Load simulated demo user from localStorage if present
+        // Only load user if they previously legitimately registered or logged in
         const saved = localStorage.getItem(LOCAL_AUTH_KEY);
         if (saved) {
           try {
             const parsed = JSON.parse(saved);
-            setUser(parsed.user);
-            setProfile(parsed.profile);
+            // Purge old mock evaluation test accounts
+            if (parsed.user?.id === 'usr-student-1' || parsed.user?.id === 'owner-1' || parsed.user?.id === 'admin-super-1') {
+              localStorage.removeItem(LOCAL_AUTH_KEY);
+              setUser(null);
+              setProfile(null);
+            } else {
+              setUser(parsed.user);
+              setProfile(parsed.profile);
+            }
           } catch {
-            // ignore
+            setUser(null);
+            setProfile(null);
           }
         } else {
-          // Default to a friendly Hubli job seeker for immediate testability
-          const defaultUser: User = { id: 'usr-student-1', email: 'ananya.student@kletech.ac.in' };
-          const defaultProfile: Profile = {
-            id: 'usr-student-1',
-            full_name: 'Ananya Patil',
-            user_type: 'job_seeker',
-            phone: '+91 98801 87654',
-            city: 'Hubli',
-            locality: 'Vidyanagar',
-            skills: ['Customer Relations', 'Kannada & English', 'Cashier', 'Canva'],
-            education: 'B.Com 2nd Year, KLE College Hubli',
-            experience_summary: 'Eager college student looking for evening or weekend part-time roles near Vidyanagar.',
-            resume_url: null,
-            is_admin: false,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-          };
-          setUser(defaultUser);
-          setProfile(defaultProfile);
-          localStorage.setItem(LOCAL_AUTH_KEY, JSON.stringify({ user: defaultUser, profile: defaultProfile }));
+          // Clean public start: Unauthenticated visitor / guest
+          setUser(null);
+          setProfile(null);
         }
       }
 
@@ -237,63 +227,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return {};
   };
 
-  const switchDemoRole = (targetRole: UserRole) => {
-    let mockUser: User;
-    let mockProfile: Profile;
-
-    if (targetRole === 'employer') {
-      mockUser = { id: 'owner-1', email: 'rajesh.kamat@kamatretail.com' };
-      mockProfile = {
-        id: 'owner-1',
-        full_name: 'Rajesh Kamat (Kamat Retail)',
-        user_type: 'employer',
-        phone: '+91 98801 12345',
-        city: 'Hubli',
-        locality: 'Chennamma Circle',
-        skills: ['Store Management', 'Staff Recruitment', 'Business Operations'],
-        education: 'B.Com Karnatak University Dharwad',
-        experience_summary: 'Retail business owner for 12 years in Hubli.',
-        is_admin: false,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-    } else if (targetRole === 'admin') {
-      mockUser = { id: 'admin-super-1', email: 'admin@samparka.in' };
-      mockProfile = {
-        id: 'admin-super-1',
-        full_name: 'Samparka Platform Administrator',
-        user_type: 'admin',
-        phone: '+91 80000 00001',
-        city: 'Hubli',
-        locality: 'Vidyanagar',
-        skills: ['Platform Moderation', 'Audit Operations'],
-        is_admin: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-    } else {
-      mockUser = { id: 'usr-student-1', email: 'ananya.student@kletech.ac.in' };
-      mockProfile = {
-        id: 'usr-student-1',
-        full_name: 'Ananya Patil',
-        user_type: 'job_seeker',
-        phone: '+91 98801 87654',
-        city: 'Hubli',
-        locality: 'Vidyanagar',
-        skills: ['Customer Relations', 'Kannada & English', 'Cashier', 'Canva'],
-        education: 'B.Com 2nd Year, KLE College Hubli',
-        experience_summary: 'College student looking for flexible evening part-time roles near Vidyanagar.',
-        is_admin: false,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-    }
-
-    setUser(mockUser);
-    setProfile(mockProfile);
-    localStorage.setItem(LOCAL_AUTH_KEY, JSON.stringify({ user: mockUser, profile: mockProfile }));
-  };
-
   const role = profile?.user_type || null;
   const isAdmin = profile?.is_admin || role === 'admin';
 
@@ -309,7 +242,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         signUp,
         signOut,
         updateProfile,
-        switchDemoRole,
       }}
     >
       {children}

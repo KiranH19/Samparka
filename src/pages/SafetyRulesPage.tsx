@@ -152,8 +152,8 @@ export const SafetyRulesPage: React.FC = () => {
           Hubli-Dharwad, Karnataka 580001
         </p>
         <p>
-          <a href="mailto:samparkasupport@gmail.com" className="text-[#0BAA70] hover:underline font-semibold">
-            samparkasupport@gmail.com
+          <a href="mailto:samparkaconnect@gmail.com" className="text-[#0BAA70] hover:underline font-semibold">
+            samparkaconnect@gmail.com
           </a>
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4 pt-1 font-semibold text-slate-700">
